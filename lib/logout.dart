@@ -3,14 +3,14 @@ import 'dart:convert'; // JSON Encode, Decode를 위한 패키지
 import 'package:flutter_secure_storage/flutter_secure_storage.dart'; // flutter_secure_storage 패키지
 
 class ServicePage extends StatefulWidget {
-  const ServicePage({Key? key}) : super(key: key);
+  const ServicePage({super.key});
 
   @override
   State<ServicePage> createState() => _ServicePageState();
 }
 
 class _ServicePageState extends State<ServicePage> {
-  static final storage = FlutterSecureStorage();
+  static final storage = const FlutterSecureStorage();
   dynamic userInfo = '';
 
   logout() async {
@@ -42,10 +42,10 @@ class _ServicePageState extends State<ServicePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Main'),
+        title: const Text('Main'),
         actions: [
           IconButton(
-            icon: Icon(Icons.logout),
+            icon: const Icon(Icons.logout),
             tooltip: 'logout',
             onPressed: () {
               logout();

@@ -8,12 +8,17 @@ import 'calendartab.dart';
 // import 'package:dio/dio.dart'; // DIO 패키지로 HTTP 통신
 import 'package:flutter_secure_storage/flutter_secure_storage.dart'; // flutter_secure_storage 패키지
 import 'model.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
-void main() {
-  runApp(MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized(); // 비동기 작업을 보장
+  await initializeDateFormatting('ko_KR', null); // 한국 로케일 초기화
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return CupertinoApp(
@@ -23,6 +28,8 @@ class MyApp extends StatelessWidget {
 }
 
 class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
+
   @override
   State<LoginPage> createState() => _LoginPageState();
 }
@@ -31,7 +38,7 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController username = TextEditingController(); // ID 컨트롤러
   final TextEditingController password = TextEditingController(); // 비밀번호 컨트롤러
 
-  static final storage = FlutterSecureStorage(); // 플러터 시큐스토리지를 스토리지로 저장
+  static final storage = const FlutterSecureStorage(); // 플러터 시큐스토리지를 스토리지로 저장
   dynamic userInfo = ''; // storage  에 있는 유저 정보 저장
 
   @override
@@ -86,7 +93,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
-      navigationBar: CupertinoNavigationBar(
+      navigationBar: const CupertinoNavigationBar(
         middle: Text('Login'),
       ),
       child: SafeArea(
@@ -95,7 +102,7 @@ class _LoginPageState extends State<LoginPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Container(
-                margin: EdgeInsets.only(bottom: 40),
+                margin: const EdgeInsets.only(bottom: 40),
                 child: Image.asset(
                   'assets/app_logo.png',
                   width: 100,
@@ -125,7 +132,7 @@ class _LoginPageState extends State<LoginPage> {
               Padding(
                 padding: const EdgeInsets.only(top: 24),
                 child: CupertinoButton.filled(
-                  child: Text('Login'),
+                  child: const Text('Login'),
                   onPressed: () async {
                     bool success =
                         await loginAction(username.text, password.text);
@@ -151,11 +158,13 @@ class _LoginPageState extends State<LoginPage> {
 }
 
 class MainTabPage extends StatelessWidget {
+  const MainTabPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return CupertinoTabScaffold(
       tabBar: CupertinoTabBar(
-        items: [
+        items: const [
           BottomNavigationBarItem(
             icon: Icon(CupertinoIcons.home),
             label: 'Home',
@@ -183,7 +192,7 @@ class MainTabPage extends StatelessWidget {
           case 2:
             return AlbumTab();
           case 3:
-            return CalendarTab(); // CalendarTab 확인용
+            return const CalendarTab(); // CalendarTab 확인용
           default:
             return HomeTab();
         }

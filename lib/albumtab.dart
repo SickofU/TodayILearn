@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 
 class AlbumTab extends StatelessWidget {
+  const AlbumTab({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return CupertinoPageScaffold(
+    return const CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
         middle: Text('Shop'),
       ),
